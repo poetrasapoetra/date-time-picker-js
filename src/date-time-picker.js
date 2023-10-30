@@ -164,18 +164,18 @@ const DateTimePicker = (function () {
     const viewDate = picker.view_date;
     const today = new Date();
     const thisyear = today.getFullYear();
-    let startYear = viewDate.getFullYear() - (viewDate.getFullYear() % 10) - 1;
+    let startYear = viewDate.getFullYear() - (viewDate.getFullYear() % 20) + 1;
     if (
-      startYear < -1 ||
-      (startYear + 11 < picker.options.start_date?.getFullYear() ?? -1)
+      startYear < 0 ||
+      (startYear + 19 < picker.options.start_date?.getFullYear() ?? -1)
     ) {
-      viewDate.setFullYear(viewDate.getFullYear() + 10);
+      viewDate.setFullYear(viewDate.getFullYear() + 20);
       return;
     } else if (
       startYear + 1 > picker.options.end_date?.getFullYear() ??
       Infinity
     ) {
-      viewDate.setFullYear(viewDate.getFullYear() - 10);
+      viewDate.setFullYear(viewDate.getFullYear() - 20);
       return;
     }
     picker.nodes.body.classList.remove("date", "month");
@@ -197,7 +197,7 @@ const DateTimePicker = (function () {
     }
 
     const buttons = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 20; i++) {
       const button = c_button(
         `dtp-btn-year ${thisyear == startYear + i ? "today" : ""} ${
           picker.selected_date.getFullYear() == startYear + i ? "selected" : ""
@@ -207,8 +207,6 @@ const DateTimePicker = (function () {
         button.classList.add("hidden");
       }
       if (
-        i == 0 ||
-        i == 11 ||
         (startYear + i < picker.options.start_date?.getFullYear() ?? -1) ||
         (startYear + i > picker.options.end_date?.getFullYear() ?? Infinity)
       ) {
@@ -236,7 +234,7 @@ const DateTimePicker = (function () {
     }
     picker.nodes.bodyTable.innerHTML = "";
     picker.nodes.bodyTable.append(...buttons);
-    picker.nodes.infoBtn.innerHTML = `${startYear + 1} - ${startYear + 10}`;
+    picker.nodes.infoBtn.innerHTML = `${startYear} - ${startYear + 19}`;
   }
 
   function generateMonthButtons(/**@type DateTimePicker */ picker) {
@@ -290,7 +288,7 @@ const DateTimePicker = (function () {
       if (
         ((viewDate.getFullYear() == pStartDate.getFullYear() ?? 0) &&
           i < (pStartDate?.getMonth() ?? 0)) ||
-        ((viewDate.getFullYear() == pEndDate.getFullYear() ?? Infinity) &&
+        ((viewDate.getFullYear() == pEndDate?.getFullYear() ?? Infinity) &&
           (i > pEndDate?.getMonth ?? 12))
       ) {
         button.classList.add("disabled");
@@ -592,11 +590,8 @@ const DateTimePicker = (function () {
           this.options.selected_date = new Date();
         }
       }
-      if (
-        !(this.options.start_date instanceof Date) ||
-        this.options.start_date.getTime() < 0
-      ) {
-        this.options.start_date = new Date(0);
+      if (!(this.options.start_date instanceof Date)) {
+        this.options.start_date = new Date("0001-01-01T00:00:00");
       }
       if (!this.options.type) {
         const types = ["year", "month", "date", "datetime-local"];
@@ -816,7 +811,7 @@ const DateTimePicker = (function () {
 
         cancelButton.addEventListener("click", function (evt) {
           evt.preventDefault();
-          _this.selected_date = _this.options.selected_date;
+          _this.selected_date = new Date(_this.options.selected_date);
           _this.view_date = _this.selected_date;
           _this.reset().hide();
         });
@@ -831,6 +826,7 @@ const DateTimePicker = (function () {
         buttons.append(cancelButton, selectButton);
         this.nodes.buttonSelect = selectButton;
         this.nodes.buttonCancel = cancelButton;
+        this.options.close_on_select = false;
       }
 
       footer.append(buttons);
@@ -846,7 +842,7 @@ const DateTimePicker = (function () {
             _this.view_date.setFullYear(_this.view_date.getFullYear() + 1);
             break;
           case "year":
-            _this.view_date.setFullYear(_this.view_date.getFullYear() + 10);
+            _this.view_date.setFullYear(_this.view_date.getFullYear() + 20);
             break;
         }
         generateButtons(_this);
@@ -861,7 +857,7 @@ const DateTimePicker = (function () {
             _this.view_date.setFullYear(_this.view_date.getFullYear() - 1);
             break;
           case "year":
-            _this.view_date.setFullYear(_this.view_date.getFullYear() - 10);
+            _this.view_date.setFullYear(_this.view_date.getFullYear() - 20);
             break;
         }
         generateButtons(_this);
@@ -935,6 +931,7 @@ const DateTimePicker = (function () {
     reset() {
       this.selected_date = new Date(this.options.selected_date);
       this.view_date = new Date(this.selected_date) ?? new Date();
+      // this.setSelectedDate(this.selected_date);
       return this;
     }
 
@@ -958,7 +955,6 @@ const DateTimePicker = (function () {
           case "year":
             format = "Y" + format;
         }
-        console.log(this.getSelectedDateFormat(format));
         this.element.value = this.getSelectedDateFormat(format);
       }
       return this;

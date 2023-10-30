@@ -111,10 +111,15 @@ $border-color: var(--dtp-border-line-color)
                 grid-template-columns: $tile-repeat-date
                 gap: 2px
 
-        &.month, &.year
+        &.month
             .dtp-body-table-body
                 display: grid
                 grid-template-columns: repeat(3, 1fr)
+        &.year
+            .dtp-body-table-body
+                display: grid
+                grid-template-columns: repeat(4, 1fr)
+
         button
             background-color: $button-bg
             cursor: pointer
@@ -133,8 +138,10 @@ $border-color: var(--dtp-border-line-color)
                 color: $color-on-primary
                 &:hover
                     background-color: $primary-color-dark
-            &.dtp-btn-month, &.dtp-btn-year
+            &.dtp-btn-month
                 width: 2.3*$tile-width
+            &.dtp-btn-year
+                width: 1.8*$tile-width
     .dtp-time-picker
         display: grid
         grid-template-columns: $tile-width $tile-width*1.2 4px $tile-width*1.2 4px $tile-width*1.2 4px $tile-width*1.7
