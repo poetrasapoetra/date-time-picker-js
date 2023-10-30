@@ -45,5 +45,41 @@ document.addEventListener("DOMContentLoaded", () => {
 ```
 
 ## Options
-All options are available in docs
 
+All options are available in [docs](https://htmlpreview.github.io/?https://github.com/poetrasapoetra/date-time-picker-js/main/docs/index.html#DateTimePickerOption)
+
+Here some example
+
+```js
+new DateTimePicker(dti, {
+  show: false, // no show after initialization
+  first_day: 1, // Monday is first day
+  close_on_select: false, // Add select button
+  show_today_button: true,
+  start_date: new Date(2019, 8, 12), // date before this cannot be selected
+  end_date: new Date(2023, 11, 12), // date after this cannot be selected
+  theme_class: "dark", // using dark from theme class as base theme
+  theme: {
+    // with some tweak in some properties
+    primary_color: "#3498db",
+    primary_color_dark: "#16a085",
+    border_line_color: "red",
+  },
+  locale: {
+    // Bahasa indonesia
+    locale_name: "id",
+    lang: {
+      days: "Minggu,Senin,Selasa,Rabu,Kamis,Jumat,Sabtu".split(","),
+      months:
+        "Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember".split(
+          ","
+        ),
+      day_short: "Min,Sen,Sel,Rab,Kam,Jum,Sab".split(","),
+      month_short: "Jan,Feb,Mar,Apr,Mei,Jun,Jul,Agu,Sep,Okt,Nov,Des".split(","),
+      today: "Hari ini",
+      select: "Pilih",
+      cancel: "Batal",
+    },
+  },
+});
+```
