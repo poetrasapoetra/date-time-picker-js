@@ -50,7 +50,12 @@ All options are available in [docs](https://htmlpreview.github.io/?https://githu
 
 Here some example
 
+```html
+<input type="date" name="" id="myDate" />
+```
+
 ```js
+const dti = document.getElementById("myDate");
 new DateTimePicker(dti, {
   show: false, // no show after initialization
   first_day: 1, // Monday is first day
