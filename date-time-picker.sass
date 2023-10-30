@@ -1,0 +1,186 @@
+$border-radius: 4px
+$tile-width: 1.9rem
+$tile-repeat-date: repeat(7, $tile-width)
+$text-color: var(--dtp-text-color)
+$button-bg: var(--dtp-btn-tile-bg-color)
+$button-bg-hover: var(--dtp-btn-tile-bg-hover)
+$primary-color: var(--dtp-primary-color)
+$primary-color-dark: var(--dtp-primary-color-dark)
+$color-on-primary: var(--dtp-color-on-primary)
+$border-color: var(--dtp-border-line-color)
+
+.dtp-wrapper
+    position: relative
+    --dtp-background-color: #fff
+    --dtp-text-color: #444
+    --dtp-btn-tile-bg-color: #eee
+    --dtp-btn-tile-bg-hover: #ddd
+    --dtp-primary-color: #1abc9c
+    --dtp-primary-color-dark: #18957c
+    --dtp-color-on-primary: #fff
+    --dtp-border-line-color: #ccc
+    &.dark
+        --dtp-text-color: #eee
+        --dtp-btn-tile-bg-color: #555
+        --dtp-btn-tile-bg-hover: #626262
+        --dtp-primary-color: #1abc9c
+        --dtp-primary-color-dark: #18957c
+        --dtp-color-on-primary: #fff
+        --dtp-background-color: #424242
+        --dtp-border-line-color: #777
+
+.dtp-container
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    position: relative
+    display: none
+    padding: .5rem 1rem
+    border: 1px solid $border-color
+    border-radius: $border-radius
+    box-shadow: 1px 1px 5px 1px #2224
+    color: $text-color
+    background-color: var(--dtp-background-color)
+    &.show
+        display: block
+        position: absolute
+        left: 0
+        z-index: 1
+    > *
+        padding: 4px
+        padding-block: .5rem
+    *
+        font-size: .85em
+    .dtp-header
+        display: grid
+        grid-template-columns: 30px 1fr 30px
+        gap: 5px
+        border-bottom: 1px solid $border-color
+        button
+            width: 100%
+            height: 30px
+            background-position: center
+            background-repeat: no-repeat
+            border: none
+            cursor: pointer
+            background-color: transparent
+            transition: .25s
+            color: $text-color
+            &:hover
+                background-color: #2222
+        .dtp-prev
+            border-radius: 100%
+            // background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z" fill="currentColor"/></svg>')
+        .dtp-next
+            border-radius: 100%
+            // background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 4.29289C8.68342 3.90237 9.31658 3.90237 9.70711 4.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L9.70711 19.7071C9.31658 20.0976 8.68342 20.0976 8.29289 19.7071C7.90237 19.3166 7.90237 18.6834 8.29289 18.2929L14.5858 12L8.29289 5.70711C7.90237 5.31658 7.90237 4.68342 8.29289 4.29289Z" fill="currentColor"/></svg>')
+        .dtp-header-info
+            border-radius: $border-radius
+
+    .dtp-body
+        // padding-top: 0px
+        border-bottom: 1px solid $border-color
+        .dtp-body-table-header
+            display: none
+            > *
+                height: $tile-width
+                display: flex
+                align-items: center
+                justify-content: center
+                border: none
+                border-radius: $border-radius
+                font-weight: bold
+                color: $text-color
+                > .sun
+                    color: red
+        .dtp-body-table-body
+            display: grid
+            gap: 2px
+            > *
+                height: $tile-width
+                display: flex
+                align-items: center
+                justify-content: center
+                border: none
+                border-radius: $border-radius
+                font-weight: bold
+                color: $text-color
+        .sun
+            color: red
+        &.date
+            .dtp-body-table-header,.dtp-body-table-body
+                display: grid
+                grid-template-columns: $tile-repeat-date
+                gap: 2px
+
+        &.month, &.year
+            .dtp-body-table-body
+                display: grid
+                grid-template-columns: repeat(3, 1fr)
+        button
+            background-color: $button-bg
+            cursor: pointer
+            &.disabled
+                opacity: .5
+                cursor: default
+            &.hidden
+                opacity: 0
+                z-index: -1
+            &:not(.disabled):hover
+                background-color: $button-bg-hover
+            &.today
+                border: 1px solid $primary-color
+            &.selected
+                background-color: $primary-color
+                color: $color-on-primary
+                &:hover
+                    background-color: $primary-color-dark
+            &.dtp-btn-month, &.dtp-btn-year
+                width: 2.3*$tile-width
+    .dtp-time-picker
+        display: grid
+        grid-template-columns: $tile-width $tile-width*1.2 4px $tile-width*1.2 4px $tile-width*1.2 4px $tile-width*1.7
+        gap: 2px
+        border-bottom: 1px solid $border-color
+        padding-bottom: .5rem
+        margin-bottom: .5rem
+        line-height: .75*$tile-width
+        &.hidden
+            display: none
+        > *
+            height: .75*$tile-width
+            padding: 0
+            display: flex
+            align-items: center
+            justify-content: center
+            color: $text-color
+            background: transparent
+        input
+            border: 1px solid $border-color
+            outline: none
+            font-size: 1em
+            text-align: center
+            border-radius: $border-radius
+            &:focus
+                border-color: $primary-color
+    .dtp-footer
+        .dtp-buttons
+            display: flex
+            gap: 5px
+            justify-content: end
+            > button
+                border: none
+                background-color: $button-bg
+                padding: .4rem 1rem
+                font-size: 1em
+                border-radius: $border-radius
+                color: $text-color
+                &.hidden
+                    display: none
+                &.dtp-today-btn
+                    margin-right: auto
+                &:hover
+                    background-color: $button-bg-hover
+                &.dtp-select
+                    background-color: $primary-color
+                    color: $color-on-primary
+                    &:hover
+                        background-color: $primary-color-dark

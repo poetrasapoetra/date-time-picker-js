@@ -1,0 +1,210 @@
+.dtp-wrapper {
+  position: relative;
+  --dtp-background-color: #fff;
+  --dtp-text-color: #444;
+  --dtp-btn-tile-bg-color: #eee;
+  --dtp-btn-tile-bg-hover: #ddd;
+  --dtp-primary-color: #1abc9c;
+  --dtp-primary-color-dark: #18957c;
+  --dtp-color-on-primary: #fff;
+  --dtp-border-line-color: #ccc;
+}
+.dtp-wrapper.dark {
+  --dtp-text-color: #eee;
+  --dtp-btn-tile-bg-color: #555;
+  --dtp-btn-tile-bg-hover: #626262;
+  --dtp-primary-color: #1abc9c;
+  --dtp-primary-color-dark: #18957c;
+  --dtp-color-on-primary: #fff;
+  --dtp-background-color: #424242;
+  --dtp-border-line-color: #777;
+}
+
+.dtp-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  position: relative;
+  display: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--dtp-border-line-color);
+  border-radius: 4px;
+  box-shadow: 1px 1px 5px 1px rgba(34, 34, 34, 0.2666666667);
+  color: var(--dtp-text-color);
+  background-color: var(--dtp-background-color);
+}
+.dtp-container.show {
+  display: block;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+.dtp-container > * {
+  padding: 4px;
+  padding-block: 0.5rem;
+}
+.dtp-container * {
+  font-size: 0.85em;
+}
+.dtp-container .dtp-header {
+  display: grid;
+  grid-template-columns: 30px 1fr 30px;
+  gap: 5px;
+  border-bottom: 1px solid var(--dtp-border-line-color);
+}
+.dtp-container .dtp-header button {
+  width: 100%;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  transition: 0.25s;
+  color: var(--dtp-text-color);
+}
+.dtp-container .dtp-header button:hover {
+  background-color: rgba(34, 34, 34, 0.1333333333);
+}
+.dtp-container .dtp-header .dtp-prev {
+  border-radius: 100%;
+}
+.dtp-container .dtp-header .dtp-next {
+  border-radius: 100%;
+}
+.dtp-container .dtp-header .dtp-header-info {
+  border-radius: 4px;
+}
+.dtp-container .dtp-body {
+  border-bottom: 1px solid var(--dtp-border-line-color);
+}
+.dtp-container .dtp-body .dtp-body-table-header {
+  display: none;
+}
+.dtp-container .dtp-body .dtp-body-table-header > * {
+  height: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  color: var(--dtp-text-color);
+}
+.dtp-container .dtp-body .dtp-body-table-header > * > .sun {
+  color: red;
+}
+.dtp-container .dtp-body .dtp-body-table-body {
+  display: grid;
+  gap: 2px;
+}
+.dtp-container .dtp-body .dtp-body-table-body > * {
+  height: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  color: var(--dtp-text-color);
+}
+.dtp-container .dtp-body .sun {
+  color: red;
+}
+.dtp-container .dtp-body.date .dtp-body-table-header, .dtp-container .dtp-body.date .dtp-body-table-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1.9rem);
+  gap: 2px;
+}
+.dtp-container .dtp-body.month .dtp-body-table-body, .dtp-container .dtp-body.year .dtp-body-table-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.dtp-container .dtp-body button {
+  background-color: var(--dtp-btn-tile-bg-color);
+  cursor: pointer;
+}
+.dtp-container .dtp-body button.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.dtp-container .dtp-body button.hidden {
+  opacity: 0;
+  z-index: -1;
+}
+.dtp-container .dtp-body button:not(.disabled):hover {
+  background-color: var(--dtp-btn-tile-bg-hover);
+}
+.dtp-container .dtp-body button.today {
+  border: 1px solid var(--dtp-primary-color);
+}
+.dtp-container .dtp-body button.selected {
+  background-color: var(--dtp-primary-color);
+  color: var(--dtp-color-on-primary);
+}
+.dtp-container .dtp-body button.selected:hover {
+  background-color: var(--dtp-primary-color-dark);
+}
+.dtp-container .dtp-body button.dtp-btn-month, .dtp-container .dtp-body button.dtp-btn-year {
+  width: 4.37rem;
+}
+.dtp-container .dtp-time-picker {
+  display: grid;
+  grid-template-columns: 1.9rem 2.28rem 4px 2.28rem 4px 2.28rem 4px 3.23rem;
+  gap: 2px;
+  border-bottom: 1px solid var(--dtp-border-line-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.425rem;
+}
+.dtp-container .dtp-time-picker.hidden {
+  display: none;
+}
+.dtp-container .dtp-time-picker > * {
+  height: 1.425rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dtp-text-color);
+  background: transparent;
+}
+.dtp-container .dtp-time-picker input {
+  border: 1px solid var(--dtp-border-line-color);
+  outline: none;
+  font-size: 1em;
+  text-align: center;
+  border-radius: 4px;
+}
+.dtp-container .dtp-time-picker input:focus {
+  border-color: var(--dtp-primary-color);
+}
+.dtp-container .dtp-footer .dtp-buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+.dtp-container .dtp-footer .dtp-buttons > button {
+  border: none;
+  background-color: var(--dtp-btn-tile-bg-color);
+  padding: 0.4rem 1rem;
+  font-size: 1em;
+  border-radius: 4px;
+  color: var(--dtp-text-color);
+}
+.dtp-container .dtp-footer .dtp-buttons > button.hidden {
+  display: none;
+}
+.dtp-container .dtp-footer .dtp-buttons > button.dtp-today-btn {
+  margin-right: auto;
+}
+.dtp-container .dtp-footer .dtp-buttons > button:hover {
+  background-color: var(--dtp-btn-tile-bg-hover);
+}
+.dtp-container .dtp-footer .dtp-buttons > button.dtp-select {
+  background-color: var(--dtp-primary-color);
+  color: var(--dtp-color-on-primary);
+}
+.dtp-container .dtp-footer .dtp-buttons > button.dtp-select:hover {
+  background-color: var(--dtp-primary-color-dark);
+}
+
+/*# sourceMappingURL=date-time-picker.css.map */

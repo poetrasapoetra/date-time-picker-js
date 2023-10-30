@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="date-time-picker.css" />
+    <script src="date-time-picker.js"></script>
+  </head>
+  <body>
+    <input type="date" name="" class="date_time" />
+    <input
+      type="datetime-local"
+      name=""
+      class="date_time"
+      value="2023-10-01T12:10"
+    />
+    <input type="month" name="" class="date_time" value="2023-10" />
+    <input type="year" name="" class="date_time" value="2023" />
+    <script>
+      let dp = [];
+      document.addEventListener("DOMContentLoaded", () => {
+        const dateTimeInput = document.querySelectorAll(".date_time");
+        dateTimeInput.forEach((dti, i) => {
+          dp.push(
+            new DateTimePicker(dti, {
+              show: false,
+              first_day: 0,
+              close_on_select: false,
+              show_today_button: true,
+              start_date: new Date(2019, 8, 12),
+              end_date: new Date(2023, 11, 12),
+              theme_class: "dark",
+              theme: {
+                // primary_color: "#3498db",
+                primary_color_dark: "#16a085",
+                // border_line_color: "red",
+              },
+              locale: {
+                locale_name: "id",
+                lang: {
+                  days: "Minggu,Senin,Selasa,Rabu,Kamis,Jumat,Sabtu".split(","),
+                  months:
+                    "Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember".split(
+                      ","
+                    ),
+                  day_short: "Min,Sen,Sel,Rab,Kam,Jum,Sab".split(","),
+                  month_short:
+                    "Jan,Feb,Mar,Apr,Mei,Jun,Jul,Agu,Sep,Okt,Nov,Des".split(
+                      ","
+                    ),
+                  today: "Hari ini",
+                  select: "Pilih",
+                  cancel: "Batal",
+                },
+              },
+            })
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
