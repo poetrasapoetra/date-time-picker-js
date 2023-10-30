@@ -460,7 +460,6 @@ const DateTimePicker = (function () {
      *
      * @param {Date} date
      * @param {DateTimePickerLang} lang
-     * @returns
      */
     constructor(date, lang) {
       this.date = date;
